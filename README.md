@@ -1,3 +1,4 @@
-# WXT + React
+# open-in-codesandbox quickly
 
-This template should help get you started developing with React in WXT.
+open the **public repo** in the codesandbox quickly
+

@@ -2,7 +2,7 @@
   "name": "open-in-codesandbox",
   "description": "open the public github repo in the codesandbox quickly",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -11,6 +11,7 @@
     "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
+    "zip:all": "npm run zip && npm run zip:firefox",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },

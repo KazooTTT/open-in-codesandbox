@@ -1,17 +1,15 @@
-// 1. Import the style
+
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import React from "react";
 
 export default defineContentScript({
-  matches: ["https://github.com/*?tab=repositories"],
-  // 2. Set cssInjectionMode
-  cssInjectionMode: "ui",
+  matches: [
+    "https://github.com/*/*"
+  ],
 
   async main(ctx) {
-    // 3. Define your UI
-    const ui = await createShadowRootUi(ctx, {
-      name: "example-ui",
+    const ui = createIntegratedUi(ctx, {
       position: "inline",
       onMount: (container) => {
         // Container is a body, and React warns when creating a root on the body, so create a wrapper div

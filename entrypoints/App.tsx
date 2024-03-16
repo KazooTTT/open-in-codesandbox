@@ -1,33 +1,42 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 
-const AddGitHubBoxButton = () => {
+const createButton = (repoLink: string) => {
+  const gitHubBoxLink = repoLink.replace("github.com", "githubbox.com")
+
+  const button = document.createElement("a");
+  button.href = gitHubBoxLink;
+  button.target = "_blank";
+  button.textContent = "Open on CodeSandBox";
+  button.classList.add("open-sandbox-btn", 'btn-sm', 'btn');
+  return button;
+}
+
+const getTextContent = (element: HTMLElement | null) => element?.textContent?.trim() || '';
+
+const AddButtonInRepo = ({ currentUrl }: { currentUrl: string }) => {
   useEffect(() => {
-    const repoUl = document.querySelector('ul[data-filterable-for="your-repos-filter"]');
-    const repoElements = repoUl?.querySelectorAll('li.public');
+    const repoContainerComponent = document.getElementById('repository-container-header')
+    const repoTitleComponent = document.getElementById('repo-title-component');
+
+    const isPublic = getTextContent(repoContainerComponent ?? repoTitleComponent) 
+
+    if (isPublic) {
+      const button = createButton(currentUrl)
+      const ul = document.getElementById('repository-details-container')?.querySelector('ul');
+      ul?.firstChild && ul?.append(button, ul.firstChild);
+    }
+
+  }, [])
 
 
-    repoElements.forEach((repoElement) => {
-    
-      const repoLink = repoElement.querySelector("h3 a").getAttribute("href");
-      console.log("%c Line:14 🥚 repoLink", "color:#4fff4B", repoLink);
-      const gitHubBoxLink = `https://githubbox.com/${repoLink.slice(1)}`;
+  return <></>
+}
 
-      const button = document.createElement("a");
-      button.href = gitHubBoxLink;
-      button.target = "_blank";
-      button.textContent = "Open on Sandbox";
-      button.classList.add("btn", "btn-sm", "mb-2");
-      
-      const starButtonContainer = repoElement.querySelector(
-        "div.js-toggler-container.js-social-container.starring-container.d-flex"
-      );
-      console.log("%c Line:22 🍤 starButtonContainer", "color:#93c0a4", starButtonContainer);
+const App = () => {
+  const currentUrl = window.location.href;
+  return <AddButtonInRepo currentUrl={currentUrl} />;
+}
 
-      starButtonContainer?.appendChild(button, starButtonContainer);
-    });
-  }, []);
 
-  return null;
-};
-
-export default AddGitHubBoxButton;
+export default App;

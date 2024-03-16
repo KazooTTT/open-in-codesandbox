@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 
 const AddGitHubBoxButton = () => {
   useEffect(() => {
-    const repoElements = document.querySelectorAll(
-      "li.col-12.d-flex.flex-justify-between.width-full.py-4.border-bottom.color-border-muted.public.fork"
-    );
+    const repoUl = document.querySelector('ul[data-filterable-for="your-repos-filter"]');
+    const repoElements = repoUl?.querySelectorAll('li.public');
+
 
     repoElements.forEach((repoElement) => {
-      const starButtonContainer = repoElement.querySelector(
-        ".col-2.d-flex.flex-column.flex-justify-around.flex-items-end.ml-3"
-      );
+    
       const repoLink = repoElement.querySelector("h3 a").getAttribute("href");
       console.log("%c Line:14 🥚 repoLink", "color:#4fff4B", repoLink);
       const gitHubBoxLink = `https://githubbox.com/${repoLink.slice(1)}`;
@@ -19,8 +17,13 @@ const AddGitHubBoxButton = () => {
       button.target = "_blank";
       button.textContent = "Open on Sandbox";
       button.classList.add("btn", "btn-sm", "mb-2");
+      
+      const starButtonContainer = repoElement.querySelector(
+        "div.js-toggler-container.js-social-container.starring-container.d-flex"
+      );
+      console.log("%c Line:22 🍤 starButtonContainer", "color:#93c0a4", starButtonContainer);
 
-      starButtonContainer.insertBefore(button, starButtonContainer.firstChild);
+      starButtonContainer?.appendChild(button, starButtonContainer);
     });
   }, []);
 

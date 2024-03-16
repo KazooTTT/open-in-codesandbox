@@ -1,8 +1,8 @@
 {
   "name": "open-in-codesandbox",
-  "description": "open the public repo in the codesandbox quickly",
+  "description": "open the public github repo in the codesandbox quickly",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
